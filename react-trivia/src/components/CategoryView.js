@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import CategoryButton from './CategoryButton'
 
 export default function CategoryView({categoryView, setCategoryView, questionView, setQuestionView}) {
