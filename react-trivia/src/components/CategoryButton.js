@@ -19,6 +19,7 @@ export default function CategoryButton({categoryView, setCategoryView, questionV
         <>
         {category.map((name, index) => (
         <button className="btn-sm controls" key={index+9} onClick={() => {setCategoryView(false); setQuestionView(true);}}>{name} {index}</button>
+        
         ))}
         </>
     )
