@@ -16,50 +16,76 @@ export function App() {
   const [currentCategory, setCurrentCategory] = useState(null)
   const [correctAnswer, setCorrectAnswer] = useState(null)
   const [wrongAnswers, setWrongAnswers] = useState([])
+  const [questionAnswered, setQuestionAnswered] = useState(null)
+  const [answerCorrect, setAnswerCorrect] = useState(null)
+  let totalAnswered = 0
+  let totalCorrect = 0
 
-	const fetchQuestion = (catId) => {
+
+  const fetchQuestion = (catId) => {
     const questionUrl = `https://opentdb.com/api.php?amount=1&category=${catId}&difficulty=medium&type=multiple`
     axios
-    .get(questionUrl)
-    .then((response) => {
-      console.log(response.data.results[0])
-      setCurrentQuestion(response.data.results[0])
-      setWrongAnswers(response.data.results[0].incorrect_answers)
-      setCorrectAnswer(response.data.results[0].correct_answer)
-    })
+      .get(questionUrl)
+      .then((response) => {
+        console.log(response.data.results[0])
+        setCurrentQuestion(response.data.results[0])
+        setWrongAnswers(response.data.results[0].incorrect_answers)
+        setCorrectAnswer(response.data.results[0].correct_answer)
+        setQuestionAnswered(false)
+      })
   }
 
   const checkAnswer = (answer) => {
-    if (answer === correctAnswer) {return true}
-    else {return false}
+    if (answer === correctAnswer) { setAnswerCorrect(true) }
+    else { setAnswerCorrect(false) }
   }
 
   useEffect(() => {
     axios
-        .get(categoriesUrl)
-        .then((response) => {
-            console.log(response.data.trivia_categories)
-            setCategoryList(response.data.trivia_categories)
-        })
-}, [])
+      .get(categoriesUrl)
+      .then((response) => {
+        console.log(response.data.trivia_categories)
+        setCategoryList(response.data.trivia_categories)
+      })
+  }, [])
 
   return (
     <>
-    <h1>Welcome to React Trivia!</h1>
-    {categoryList.map((category) => (
-        <button className="category-button" key={category.index} onClick={() => {fetchQuestion(category.id); setCurrentCategory(category.id);}}>{category.name}</button>
-        ))}
-    {currentQuestion ?
-    <>
-      <h3>Category: {currentQuestion.category}</h3>
-      <p>{currentQuestion.question}</p>
-      {wrongAnswers.concat(correctAnswer).map((answer) => (
-        <button className="answer-button" key={answer.index} onClick={() => {checkAnswer(answer)}}>{answer}</button>
+      <h1>Welcome to React Trivia!</h1>
+      {categoryList.map((category) => (
+        <button className="category-button" key={category.index} onClick={() => { fetchQuestion(category.id); setCurrentCategory(category.id); }}>{category.name}</button>
       ))}
-      <button className="next-question-button" onClick={() => {fetchQuestion(currentCategory)}}>Next Question</button>
-    </>
-    :
-    ''}
+      {currentQuestion ?
+        <>
+          <h3>Category: {currentQuestion.category}</h3>
+          <p>{currentQuestion.question}</p>
+        </>
+        :
+        ''}
+      {(answerCorrect === true) ?
+        <p>Right!</p>
+        :
+        ''
+      }
+      {(answerCorrect === false) ?
+        <p>Wrong! The correct answer was {correctAnswer}</p>
+        :
+        ''
+      }
+      {(questionAnswered === true) ?
+        <button className="next-question-button" onClick={() => { fetchQuestion(currentCategory); setQuestionAnswered(false); setAnswerCorrect(null) }}>Next Question</button>
+        :
+        ''
+      }
+      {(questionAnswered === false) ?
+        <>
+          {wrongAnswers.concat(correctAnswer).map((answer) => (
+            <button className="answer-button" onClick={() => { checkAnswer(answer); setQuestionAnswered(true);}}>{answer}</button>
+          ))}
+        </>
+        :
+        ''
+      }
     </>
   )
 }
