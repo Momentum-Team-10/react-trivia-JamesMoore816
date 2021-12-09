@@ -1,4 +1,4 @@
-import CategoryButton from './CategoryButton'
+import CategoryButtons from './CategoryButtons'
 
 export default function CategoryView({categoryView, setCategoryView, questionView, setQuestionView}) {
 
@@ -8,7 +8,7 @@ export default function CategoryView({categoryView, setCategoryView, questionVie
             <>
         <h2>Please select a category:</h2>
         <div className='category-buttons'>
-            <CategoryButton categoryView={categoryView} setCategoryView={setCategoryView} questionView={questionView} setQuestionView={setQuestionView} />
+            <CategoryButtons categoryView={categoryView} setCategoryView={setCategoryView} questionView={questionView} setQuestionView={setQuestionView} />
         </div>
         </>
         ) : ("")}

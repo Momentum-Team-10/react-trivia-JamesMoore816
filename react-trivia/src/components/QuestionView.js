@@ -6,6 +6,7 @@ export default function QuestionView({categoryView, setCategoryView, questionVie
         <>
         {questionView ? (
             <>
+            <h2>Category: XYZ</h2>
             <PlayQuestion></PlayQuestion>
             </>
         ) : ('question view set to false')}
