@@ -7,6 +7,7 @@ import axios from 'axios'
 // import CategoryButtons from './components/CategoryButtons.js';
 // import PlayQuestion from './components/PlayQuestion.js';
 import './App.css';
+import CategoryButton from './components/CategoryButton.js';
 
 export function App() {
   const categoriesUrl = 'https://opentdb.com/api_category.php'
@@ -67,7 +68,7 @@ export function App() {
     <>
       <h1>Welcome to React Trivia!</h1>
       {categoryList.map((category) => (
-        <button className="category-button" key={category.index} onClick={() => { fetchQuestion(category.id); setCurrentCategory(category.id); }}>{category.name}</button>
+        <CategoryButton name={category.name} key={category.index} id={category.id} setCurrentCategory={setCurrentCategory} fetchQuestion={fetchQuestion}></CategoryButton>
       ))}
       {currentQuestion ?
         <>
