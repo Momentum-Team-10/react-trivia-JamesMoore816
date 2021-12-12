@@ -19,7 +19,6 @@ export function App() {
   const [correctAnswer, setCorrectAnswer] = useState(null)
   const [wrongAnswers, setWrongAnswers] = useState([])
   const [questionAnswered, setQuestionAnswered] = useState(null)
-  const [answerCorrect, setAnswerCorrect] = useState(null)
   // let totalAnswered = 0
   // let totalCorrect = 0
 
@@ -37,25 +36,6 @@ export function App() {
       })
   }
 
-  const checkAnswer = (answer) => {
-    if (answer === correctAnswer) { setAnswerCorrect(true) }
-    else { setAnswerCorrect(false) }
-  }
-
-  const shuffleArray = (array) => {
-    let currentIndex = array.length, randomIndex;
-
-    while (currentIndex !== 0) {
-
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
-    }
-
-    return array;
-  }
 
   useEffect(() => {
     axios
@@ -75,33 +55,9 @@ export function App() {
         <CategoryButton name={category.name} key={category.index} id={category.id} setCurrentCategory={setCurrentCategory} fetchQuestion={fetchQuestion}></CategoryButton>
       ))}
       {currentQuestion ?
-        <QuestionView category={currentQuestion.category} question={currentQuestion.question}></QuestionView>
+        <QuestionView category={currentQuestion.category} question={currentQuestion.question} correctAnswer={correctAnswer} wrongAnswers={wrongAnswers} fetchQuestion={fetchQuestion} questionAnswered={questionAnswered} currentCategory={currentCategory} setQuestionAnswered={setQuestionAnswered}></QuestionView>
         :
         ''}
-      {(answerCorrect === true) ?
-        <p>Right!</p>
-        :
-        ''
-      }
-      {(answerCorrect === false) ?
-        <p>Wrong! The correct answer was {correctAnswer}</p>
-        :
-        ''
-      }
-      {(questionAnswered === true) ?
-        <button className="next-question-button" onClick={() => { fetchQuestion(currentCategory); setQuestionAnswered(false); setAnswerCorrect(null) }}>Next Question</button>
-        :
-        ''
-      }
-      {(questionAnswered === false) ?
-        <>
-          {shuffleArray(wrongAnswers.concat(correctAnswer)).map((answer) => (
-            <AnswerButton answer={answer} checkAnswer={checkAnswer} setQuestionAnswered={setQuestionAnswered}></AnswerButton>
-          ))}
-        </>
-        :
-        ''
-      }
     </>
   )
 }
