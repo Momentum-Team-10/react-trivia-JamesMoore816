@@ -1,4 +1,4 @@
-import PlayQuestion from "./PlayQuestion"
+import PlayQuestion from "./PlayQuestionOld"
 
 export default function QuestionView({categoryView, setCategoryView, questionView, setQuestionView}) {
     

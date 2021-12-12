@@ -1,4 +1,4 @@
-import CategoryButtons from './CategoryButtons'
+import CategoryButtons from './CategoryButtonsOld'
 
 export default function CategoryView({categoryView, setCategoryView, questionView, setQuestionView}) {
 

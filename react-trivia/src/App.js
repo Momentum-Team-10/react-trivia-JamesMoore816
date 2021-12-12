@@ -1,3 +1,4 @@
+import he from 'he'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 // import Categories from './components/Categories.js'
@@ -11,15 +12,13 @@ export function App() {
   const categoriesUrl = 'https://opentdb.com/api_category.php'
   const [categoryList, setCategoryList] = useState([])
   const [currentQuestion, setCurrentQuestion] = useState(null)
-  const [categoryView, setCategoryView] = useState(true)
-  const [questionView, setQuestionView] = useState(false)
   const [currentCategory, setCurrentCategory] = useState(null)
   const [correctAnswer, setCorrectAnswer] = useState(null)
   const [wrongAnswers, setWrongAnswers] = useState([])
   const [questionAnswered, setQuestionAnswered] = useState(null)
   const [answerCorrect, setAnswerCorrect] = useState(null)
-  let totalAnswered = 0
-  let totalCorrect = 0
+  // let totalAnswered = 0
+  // let totalCorrect = 0
 
 
   const fetchQuestion = (catId) => {
@@ -49,6 +48,21 @@ export function App() {
       })
   }, [])
 
+  const shuffleArray = (array) => {
+    let currentIndex = array.length, randomIndex;
+
+    while (currentIndex !== 0) {
+
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
+  }
+
   return (
     <>
       <h1>Welcome to React Trivia!</h1>
@@ -58,7 +72,7 @@ export function App() {
       {currentQuestion ?
         <>
           <h3>Category: {currentQuestion.category}</h3>
-          <p>{currentQuestion.question}</p>
+          <p>{he.decode(currentQuestion.question)}</p>
         </>
         :
         ''}
@@ -79,8 +93,8 @@ export function App() {
       }
       {(questionAnswered === false) ?
         <>
-          {wrongAnswers.concat(correctAnswer).map((answer) => (
-            <button className="answer-button" onClick={() => { checkAnswer(answer); setQuestionAnswered(true);}}>{answer}</button>
+          {shuffleArray(wrongAnswers.concat(correctAnswer)).map((answer) => (
+            <button className="answer-button" onClick={() => { checkAnswer(answer); setQuestionAnswered(true); }}>{he.decode(answer)}</button>
           ))}
         </>
         :
