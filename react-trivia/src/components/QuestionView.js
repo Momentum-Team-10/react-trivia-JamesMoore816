@@ -32,12 +32,12 @@ export default function QuestionView(props) {
             <p>{he.decode(question)}</p>
 
             {(answerCorrect === true) ?
-                <p>Right!</p>
+                <p>You are correct!</p>
                 :
                 ''
             }
             {(answerCorrect === false) ?
-                <p>Wrong! The correct answer was {he.decode(correctAnswer)}</p>
+                <p>Incorrect! The correct answer was {he.decode(correctAnswer)}</p>
                 :
                 ''
             }
