@@ -3,7 +3,7 @@ import { useState } from 'react'
 import AnswerButton from './AnswerButton.js'
 
 export default function QuestionView(props) {
-    const { question, category, correctAnswer, wrongAnswers, fetchQuestion, questionAnswered, currentCategory, setQuestionAnswered } = props
+    const { question, category, correctAnswer, wrongAnswers, fetchQuestion, questionAnswered, currentCategory, setQuestionAnswered, setCurrentQuestion } = props
     const [answerCorrect, setAnswerCorrect] = useState(null)
 
     const shuffleArray = (array) => {
@@ -55,6 +55,7 @@ export default function QuestionView(props) {
                 :
                 ''
             }
+            <button className="back-to-categories" onClick={() => setCurrentQuestion(null)}>Back to Category Selection</button>
         </>
     )
 

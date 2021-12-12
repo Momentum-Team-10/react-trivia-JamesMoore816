@@ -1,15 +1,11 @@
 import he from 'he'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-// import Categories from './components/Categories.js'
-// import CategoryView from './components/CategoryView.js';
-// import QuestionView from './components/QuestionView.js';
-// import CategoryButtons from './components/CategoryButtons.js';
-// import PlayQuestion from './components/PlayQuestion.js';
+
 import './App.css';
 import CategoryButton from './components/CategoryButton.js';
 import QuestionView from './components/QuestionView.js'
-import AnswerButton from './components/AnswerButton.js'
+import CategoryView from './components/CategoryView.js'
 
 export function App() {
   const categoriesUrl = 'https://opentdb.com/api_category.php'
@@ -51,13 +47,12 @@ export function App() {
   return (
     <>
       <h1>Welcome to React Trivia!</h1>
-      {categoryList.map((category) => (
-        <CategoryButton name={category.name} key={category.index} id={category.id} setCurrentCategory={setCurrentCategory} fetchQuestion={fetchQuestion}></CategoryButton>
-      ))}
+      
       {currentQuestion ?
-        <QuestionView category={currentQuestion.category} question={currentQuestion.question} correctAnswer={correctAnswer} wrongAnswers={wrongAnswers} fetchQuestion={fetchQuestion} questionAnswered={questionAnswered} currentCategory={currentCategory} setQuestionAnswered={setQuestionAnswered}></QuestionView>
+        <QuestionView category={currentQuestion.category} question={currentQuestion.question} correctAnswer={correctAnswer} wrongAnswers={wrongAnswers} fetchQuestion={fetchQuestion} questionAnswered={questionAnswered} currentCategory={currentCategory} setQuestionAnswered={setQuestionAnswered} setCurrentQuestion={setCurrentQuestion}></QuestionView>
         :
-        ''}
+        <CategoryView categoryList={categoryList} setCurrentCategory={setCurrentCategory} fetchQuestion={fetchQuestion}></CategoryView>
+        }
     </>
   )
 }
