@@ -8,6 +8,8 @@ import axios from 'axios'
 // import PlayQuestion from './components/PlayQuestion.js';
 import './App.css';
 import CategoryButton from './components/CategoryButton.js';
+import QuestionView from './components/QuestionView.js'
+import AnswerButton from './components/AnswerButton.js'
 
 export function App() {
   const categoriesUrl = 'https://opentdb.com/api_category.php'
@@ -40,15 +42,6 @@ export function App() {
     else { setAnswerCorrect(false) }
   }
 
-  useEffect(() => {
-    axios
-      .get(categoriesUrl)
-      .then((response) => {
-        console.log(response.data.trivia_categories)
-        setCategoryList(response.data.trivia_categories)
-      })
-  }, [])
-
   const shuffleArray = (array) => {
     let currentIndex = array.length, randomIndex;
 
@@ -64,6 +57,17 @@ export function App() {
     return array;
   }
 
+  useEffect(() => {
+    axios
+      .get(categoriesUrl)
+      .then((response) => {
+        console.log(response.data.trivia_categories)
+        setCategoryList(response.data.trivia_categories)
+      })
+  }, [])
+
+
+
   return (
     <>
       <h1>Welcome to React Trivia!</h1>
@@ -71,10 +75,7 @@ export function App() {
         <CategoryButton name={category.name} key={category.index} id={category.id} setCurrentCategory={setCurrentCategory} fetchQuestion={fetchQuestion}></CategoryButton>
       ))}
       {currentQuestion ?
-        <>
-          <h3>Category: {currentQuestion.category}</h3>
-          <p>{he.decode(currentQuestion.question)}</p>
-        </>
+        <QuestionView category={currentQuestion.category} question={currentQuestion.question}></QuestionView>
         :
         ''}
       {(answerCorrect === true) ?
@@ -95,7 +96,7 @@ export function App() {
       {(questionAnswered === false) ?
         <>
           {shuffleArray(wrongAnswers.concat(correctAnswer)).map((answer) => (
-            <button className="answer-button" onClick={() => { checkAnswer(answer); setQuestionAnswered(true); }}>{he.decode(answer)}</button>
+            <AnswerButton answer={answer} checkAnswer={checkAnswer} setQuestionAnswered={setQuestionAnswered}></AnswerButton>
           ))}
         </>
         :
