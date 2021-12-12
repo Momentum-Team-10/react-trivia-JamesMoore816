@@ -5,11 +5,14 @@ export default function CategoryView(props) {
 
     return (
         <>
-    {categoryList.map((category) => (
-        <div className='category-buttons'>
-            <CategoryButton name={category.name} key={category.index} id={category.id} setCurrentCategory={setCurrentCategory} fetchQuestion={fetchQuestion} {...props}></CategoryButton>
-        </div>
-      ))}
-      </>
+            <h3>Please choose a category:</h3>
+            <div className='category-buttons'>
+                {categoryList.map((category) => (
+                    <>
+                        <CategoryButton name={category.name} key={category.index} id={category.id} setCurrentCategory={setCurrentCategory} fetchQuestion={fetchQuestion} {...props}></CategoryButton>
+                    </>
+                ))}
+            </div>
+        </>
     )
 }

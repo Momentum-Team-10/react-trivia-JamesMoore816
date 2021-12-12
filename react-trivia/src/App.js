@@ -42,7 +42,7 @@ export function App() {
 
   return (
     <>
-      <h1>Welcome to React Trivia!</h1>
+      <h1>React Trivia!</h1>
       
       {currentQuestion ?
         <QuestionView category={currentQuestion.category} question={currentQuestion.question} correctAnswer={correctAnswer} wrongAnswers={wrongAnswers} fetchQuestion={fetchQuestion} questionAnswered={questionAnswered} currentCategory={currentCategory} setQuestionAnswered={setQuestionAnswered} setCurrentQuestion={setCurrentQuestion}></QuestionView>

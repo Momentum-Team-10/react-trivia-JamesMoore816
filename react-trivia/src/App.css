@@ -45,6 +45,17 @@ body {
   margin-right: 10px;
 }
 
+.category-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  
+}
+
+.category-button {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
 .back-to-categories {
   margin-top: 10px;
   display:block;
