@@ -1,9 +1,7 @@
-import he from 'he'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 import './App.css';
-import CategoryButton from './components/CategoryButton.js';
 import QuestionView from './components/QuestionView.js'
 import CategoryView from './components/CategoryView.js'
 
@@ -15,8 +13,6 @@ export function App() {
   const [correctAnswer, setCorrectAnswer] = useState(null)
   const [wrongAnswers, setWrongAnswers] = useState([])
   const [questionAnswered, setQuestionAnswered] = useState(null)
-  // let totalAnswered = 0
-  // let totalCorrect = 0
 
 
   const fetchQuestion = (catId) => {
