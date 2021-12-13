@@ -60,3 +60,16 @@ body {
   margin-top: 10px;
   display:block;
 }
+
+.correct-message {
+  color: green;
+}
+
+.incorrect-message {
+  color: darkred;
+}
+
+.answer-emphasis {
+  font-weight: bold;
+  color: red;
+}
