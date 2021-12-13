@@ -37,7 +37,7 @@ export default function QuestionView(props) {
                 ''
             }
             {(answerCorrect === false) ?
-                <p>Incorrect! The correct answer was {he.decode(correctAnswer)}</p>
+                <p>Incorrect! The correct answer was {he.decode(correctAnswer)}.</p>
                 :
                 ''
             }
